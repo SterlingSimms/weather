@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Forecast</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+</head>
+<style>
+    .container{padding: 15px; margin-left: auto; margin-right: auto; width: 15em}
+</style>
+<body>
+    <div class='container'>
+        <h2>Weather Forecast For:</h2>
+        <form id='form'>
+        <input type='text' name='location' id='location'>
+        <input type='submit' id='input' name='input' value='Search Weather'>
+        </form>
+        <h3></h3>
+        <p></p>
+        <script>
+            $(document).ready(function () {
+                $('#form').submit(function (e) {
+                    e.preventDefault();
+                    var location = $('#location').val();
+                    console.log('location', location);
+                    $.get('http://api.openweathermap.org/data/2.5/weather?q=' + location + '&appid=3851a88777da4ee8ed033bdd16bcb849', display_weather)
+                    console.log(this)
+                    function display_weather(conditions){
+                        var k = conditions.main.temp
+                        var t = Math.floor((k * 1.8) - 459.67)
+                        $('h3').html(conditions.name);
+                        $('p').html('Temperature:' + ' ' + t)
+                    }
+                })
+            });
+        </script>
+    </div>
+</body>
+</html>
